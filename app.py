@@ -1,23 +1,19 @@
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
+import requests
+import json
+@app.route('/')
 
-#@app.route('/')
-#def enter():
-    #return redirect(f"/submit")
-
-@app.route('/submit', methods=['GET', 'POST'])
-def handle_form():
-    if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        return redirect(f"/thank_you?name={name}")
-    return render_template('form.html')
-
-@app.route('/thank_you')
-def thank_you():
-    name = request.args.get('name')
-    return f"Thank you, {name}, for submitting the form!"
+def get_deck():
+	deck = json.loads(
+	requests.post('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1').text)['deck_id']
+	return render_template('index.html', deck=deck)
+@app.route('/draw/<deck>')
+def get_cards(deck):
+	cards = json.loads(
+	requests.post('https://deckofcardsapi.com/api/deck/'+deck+'/draw/?count=1').text)['cards'][0]['image']
+	return render_template('index.html', cards=cards, deck=deck)
 
 if __name__ == '__main__':
     app.run()

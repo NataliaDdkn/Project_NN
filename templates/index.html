@@ -8,11 +8,21 @@
 
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
-
 {% block content %}
- <h1>Hello!</h1>
+
+<button type="button" onclick='window.location="/draw/{{deck}}"')>
+Вытянуть карту</button>
+
+
+ <p>{{deck}}</p>
+<img src={{cards}}>
+
+
+
+
+
+
+
 {% endblock %}
-
-
 </body>
 </html>
