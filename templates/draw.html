@@ -1,0 +1,36 @@
+
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<button type="button" onclick='window.location="/draw/{{deck}}"')>
+Вытянуть карту</button>
+{{my_cards}}
+
+<p><h1>Осталось в колоде </h1>{{cards_left}}<h1> карт</h1></p>
+<p><h1>У вас</h1>{{points_all}}<h1>очков</h1></p>
+
+<div class="card-columns">
+  <div class="row">
+  {% for card in my_cards %}
+    <div class="col-md-3">
+      <div class="card mb-3">
+          <div class="card-body">
+              <p class="badge bg-primary text-wrap"><img src={{card}}></p>
+			  
+          </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+
+
+<img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR22A3t69AGsHJ_ueIrGXxIydanQy_bRsG9aA&s>
+
+
+
+
+
+{% endblock %}

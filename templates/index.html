@@ -1,20 +1,13 @@
-<!DOCTYPE html>
 
-<html>
-<head>
-	<title>Page Title</title>
-</head>
-<body>
 
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<button type="button" onclick='window.location="/draw/{{deck}}"')>
-Вытянуть карту</button>
+<button type="button" onclick='window.location="/draw"' class="btn btn-primary")>Новая игра</button>
 
 
- <p>{{deck}}</p>
+
 <img src={{cards}}>
 
 
@@ -24,5 +17,3 @@
 
 
 {% endblock %}
-</body>
-</html>
