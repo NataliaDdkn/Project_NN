@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, session
+from flask_session import Session
 
 app = Flask(__name__)
 import requests
 import json
-app.config ['SECRET_KEY']= 'ochen_$ecRetNyI_Kod'
+app.config['SECRET_KEY']= 'ochen_$ecRetNyI_Kod'
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_THRESHOLD'] = 500
+Session(app)
 my_cards=[]
 points=[]
 
