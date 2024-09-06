@@ -8,12 +8,13 @@ app.config['SECRET_KEY']= 'ochen_$ecRetNyI_Kod'
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_THRESHOLD'] = 500
 Session(app)
-my_cards=[]
-points=[]
+
 
 
 @app.route('/')
 def get_deck():
+	session["my_cards"]=[]
+	session["points"]=[]
 	session["deck"]=json.loads(
 	requests.post('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1').text)['deck_id']
 	return render_template('index.html', deck=session["deck"])
@@ -44,14 +45,14 @@ def get_cards(deck):
 		
 	card_points=card_points(card_value)
 	
-	my_cards.append(card_suit)
+	session["my_cards"].append(card_suit)
 	
-	points.append(card_points)
-	points_all=sum(points)
+	session["points"].append(card_points)
+	points_all=sum(session["points"])
 		
 	cards_left = json.loads(
 	requests.post('https://deckofcardsapi.com/api/deck/'+deck+'').text)['remaining']
-	return render_template('draw.html', my_cards=my_cards, deck=deck, cards_left=cards_left, points_all=points_all)
+	return render_template('draw.html', my_cards=session["my_cards"], deck=deck, cards_left=cards_left, points_all=points_all)
 
 if __name__ == '__main__':
     app.run()
