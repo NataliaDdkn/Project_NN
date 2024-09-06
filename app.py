@@ -1,23 +1,25 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 
 app = Flask(__name__)
 import requests
 import json
+app.config ['SECRET_KEY']= 'ochen_$ecRetNyI_Kod'
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_FILE_THRESHOLD'] = 500
 my_cards=[]
 points=[]
 
 
 @app.route('/')
 def get_deck():
-	global deck
-	deck = json.loads(
+	session["deck"]=json.loads(
 	requests.post('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1').text)['deck_id']
-	return render_template('index.html', deck=deck)
+	return render_template('index.html', deck=session["deck"])
 
 @app.route('/draw')
 def new_game():
     
-	return render_template('draw.html', deck=deck)
+	return render_template('draw.html', deck=session["deck"])
 
 
 
